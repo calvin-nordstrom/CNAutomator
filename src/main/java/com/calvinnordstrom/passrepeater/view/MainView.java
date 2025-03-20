@@ -2,8 +2,11 @@ package com.calvinnordstrom.passrepeater.view;
 
 import com.calvinnordstrom.passrepeater.controller.MainController;
 import com.calvinnordstrom.passrepeater.model.Direction;
+import com.calvinnordstrom.passrepeater.model.PassRepeaterCommand;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
-import com.calvinnordstrom.passrepeater.model.RepeatCommand;
+import com.calvinnordstrom.passrepeater.view.control.DoubleControl;
+import com.calvinnordstrom.passrepeater.view.control.SelectControl;
+import com.calvinnordstrom.passrepeater.view.control.StringControl;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,6 +15,15 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MainView {
     private final PassRepeater model;
@@ -29,9 +41,8 @@ public class MainView {
     private final DoubleControl initialPosControl = new DoubleControl("Initial position:");
     private final DoubleControl finalPosControl = new DoubleControl("Final position:");
     private final DoubleControl incrementControl = new DoubleControl("Increment:");
-    private final StringControl passOneControl = new StringControl("First pass");
-    private final StringControl passTwoControl = new StringControl("Second pass");
-//    private PreviewWindow previewWindow;
+    private final StringControl firstPassControl = new StringControl("First pass");
+    private final StringControl secondPassControl = new StringControl("Second pass");
 
     public MainView(PassRepeater model, MainController controller) {
         this.model = model;
@@ -46,7 +57,23 @@ public class MainView {
     }
 
     private void init() {
-
+        PassRepeaterCommand command = model.getRepeatCommand();
+        textBeforeControl.setValue(command.getTextBefore());
+        textAfterControl.setValue(command.getTextAfter());
+        directionControl.setValue(command.getDirection());
+        initialPosControl.setValue(command.getInitialPos());
+        finalPosControl.setValue(command.getFinalPos());
+        incrementControl.setValue(command.getIncrement());
+        firstPassControl.setValue(command.getFirstPass());
+        secondPassControl.setValue(command.getSecondPass());
+        command.textBeforeProperty().bind(textBeforeControl.valueProperty());
+        command.textAfterProperty().bind(textAfterControl.valueProperty());
+        command.directionProperty().bind(directionControl.valueProperty());
+        command.initialPosProperty().bind(initialPosControl.valueProperty());
+        command.finalPosProperty().bind(finalPosControl.valueProperty());
+        command.incrementProperty().bind(incrementControl.valueProperty());
+        command.firstPassProperty().bind(firstPassControl.valueProperty());
+        command.secondPassProperty().bind(secondPassControl.valueProperty());
     }
 
     private void initTop() {
@@ -64,18 +91,7 @@ public class MainView {
         staticTextTab.setClosable(false);
         TabPane tabPane = new TabPane(repeatedTextTab, staticTextTab);
 
-        Button previewButton = new Button("Preview");
-        previewButton.setOnMouseClicked(_ -> {
-            controller.execute(buildCommand());
-//            if (previewWindow == null) {
-//                previewWindow = new PreviewWindow(view.getScene().getWindow());
-//            }
-//            previewWindow.show();
-        });
-        Button exportButton = new Button("Export");
-        HBox repeaterControls = new HBox(previewButton, exportButton);
-
-        view.setCenter(new VBox(tabPane, repeaterControls));
+        view.setCenter(tabPane);
     }
 
     private Node createRepeatedTextPane() {
@@ -86,11 +102,11 @@ public class MainView {
                 incrementControl.asNode()
         );
         HBox passControls = new HBox(
-                passOneControl.asNode(),
-                passTwoControl.asNode()
+                firstPassControl.asNode(),
+                secondPassControl.asNode()
         );
 
-        return new VBox(new HBox(posControls, passControls));
+        return new HBox(posControls, passControls);
     }
 
     private Node createStaticTextPane() {
@@ -107,71 +123,45 @@ public class MainView {
     private Node createPreviewPane() {
         StringControl previewControl = new StringControl("Preview");
         previewControl.bind(model.repeatedTextProperty());
-//        model.repeatedTextProperty().addListener((_, _, newValue) -> {
-//            previewControl.setText(newValue);
-//        });
 
-        return new VBox(previewControl.asNode());
+        Button exportButton = new Button("Export");
+        exportButton.setOnMouseClicked(_ -> {
+            export(model.getRepeatedText(), view.getScene().getWindow());
+        });
+
+        return new VBox(previewControl.asNode(), exportButton);
+    }
+
+    private static void export(String value, Window owner) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+
+        File fileToSave = fileChooser.showSaveDialog(owner);
+        if (fileToSave != null) {
+            String filePath = fileToSave.getAbsolutePath();
+
+            if (!filePath.toLowerCase().endsWith(".txt")) {
+                filePath += ".txt";
+            }
+
+            Path path = Paths.get(filePath);
+            try {
+                Files.createDirectories(path.getParent());
+                FileWriter writer = new FileWriter(filePath);
+                writer.write(value);
+                writer.close();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     private void initBottom() {
 
     }
 
-    private RepeatCommand buildCommand() {
-        RepeatCommand.Builder builder = new RepeatCommand.Builder();
-        builder.textBefore(textBeforeControl.getValue());
-        builder.textAfter(textAfterControl.getValue());
-        builder.direction(directionControl.getValue());
-        builder.initialPos(initialPosControl.getValue());
-        builder.finalPos(finalPosControl.getValue());
-        builder.increment(incrementControl.getValue());
-        builder.firstPass(passOneControl.getValue());
-        builder.secondPass(passTwoControl.getValue());
-        return builder.build();
-    }
-
     public Node asNode() {
         return view;
     }
-
-//    private class PreviewWindow {
-//        private static final String TITLE = "Preview";
-//        private final Window owner;
-//        private final Stage stage = new Stage();
-//        private final Scene scene;
-//
-//        public PreviewWindow(Window owner) {
-//            this.owner = owner;
-//
-//            TextArea textArea = new TextArea();
-//            textArea.textProperty().bind(model.repeatedTextProperty());
-//
-//            scene = new Scene(new Pane(textArea));
-//
-//            init();
-//        }
-//
-//        private void init() {
-//            stage.initOwner(owner);
-//            stage.initModality(Modality.NONE);
-//            stage.setTitle(TITLE);
-//            stage.setResizable(false);
-//            stage.setMinWidth(320);
-//            stage.setMinHeight(540);
-//        }
-//
-//        public void show() {
-//            if (scene != null) {
-//                stage.setScene(scene);
-//                stage.sizeToScene();
-//            }
-//            stage.show();
-//        }
-//
-//        public void hide() {
-//            stage.hide();
-//            stage.setScene(null);
-//        }
-//    }
 }

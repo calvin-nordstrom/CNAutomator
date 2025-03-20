@@ -3,28 +3,17 @@ package com.calvinnordstrom.passrepeater.model;
 import javafx.beans.property.*;
 import java.io.*;
 
-public class RepeatCommand implements Serializable {
+public class PassRepeaterCommand implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    private transient StringProperty textBefore;
-    private transient StringProperty textAfter;
-    private transient ObjectProperty<Direction> direction;
-    private transient DoubleProperty initialPos;
-    private transient DoubleProperty finalPos;
-    private transient DoubleProperty increment;
-    private transient StringProperty firstPass;
-    private transient StringProperty secondPass;
-
-    private RepeatCommand(Builder builder) {
-        textBefore = new SimpleStringProperty(builder.textBefore);
-        textAfter = new SimpleStringProperty(builder.textAfter);
-        direction = new SimpleObjectProperty<>(builder.direction);
-        initialPos = new SimpleDoubleProperty(builder.initialPos);
-        finalPos = new SimpleDoubleProperty(builder.finalPos);
-        increment = new SimpleDoubleProperty(builder.increment);
-        firstPass = new SimpleStringProperty(builder.firstPass);
-        secondPass = new SimpleStringProperty(builder.secondPass);
-    }
+    private transient StringProperty textBefore = new SimpleStringProperty("");
+    private transient StringProperty textAfter = new SimpleStringProperty("");
+    private transient ObjectProperty<Direction> direction = new SimpleObjectProperty<>(Direction.X);
+    private transient DoubleProperty initialPos = new SimpleDoubleProperty(0.0);
+    private transient DoubleProperty finalPos = new SimpleDoubleProperty(0.0);
+    private transient DoubleProperty increment = new SimpleDoubleProperty(0.0);
+    private transient StringProperty firstPass = new SimpleStringProperty("");
+    private transient StringProperty secondPass = new SimpleStringProperty("");
 
     public String getTextBefore() {
         return textBefore.get();
@@ -120,61 +109,6 @@ public class RepeatCommand implements Serializable {
 
     public StringProperty secondPassProperty() {
         return secondPass;
-    }
-
-    public static class Builder {
-        private String textBefore;
-        private String textAfter;
-        private Direction direction;
-        private double initialPos;
-        private double finalPos;
-        private double increment;
-        private String firstPass;
-        private String secondPass;
-
-        public Builder textBefore(String textBefore) {
-            this.textBefore = textBefore;
-            return this;
-        }
-
-        public Builder textAfter(String textAfter) {
-            this.textAfter = textAfter;
-            return this;
-        }
-
-        public Builder direction(Direction direction) {
-            this.direction = direction;
-            return this;
-        }
-
-        public Builder initialPos(double initialPos) {
-            this.initialPos = initialPos;
-            return this;
-        }
-
-        public Builder finalPos(double finalPos) {
-            this.finalPos = finalPos;
-            return this;
-        }
-
-        public Builder increment(double increment) {
-            this.increment = increment;
-            return this;
-        }
-
-        public Builder firstPass(String firstPass) {
-            this.firstPass = firstPass;
-            return this;
-        }
-
-        public Builder secondPass(String secondPass) {
-            this.secondPass = secondPass;
-            return this;
-        }
-
-        public RepeatCommand build() {
-            return new RepeatCommand(this);
-        }
     }
 
     @Serial

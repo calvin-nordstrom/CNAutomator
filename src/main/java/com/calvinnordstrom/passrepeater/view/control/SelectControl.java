@@ -1,4 +1,4 @@
-package com.calvinnordstrom.passrepeater.view;
+package com.calvinnordstrom.passrepeater.view.control;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -25,13 +25,16 @@ public class SelectControl<T> {
         comboBox.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             value.set(newValue);
         });
-        comboBox.getSelectionModel().selectFirst();
 
         view.getChildren().addAll(label, comboBox);
     }
 
     public T getValue() {
         return value.get();
+    }
+
+    public void setValue(T value) {
+        comboBox.setValue(value);
     }
 
     public ObjectProperty<T> valueProperty() {

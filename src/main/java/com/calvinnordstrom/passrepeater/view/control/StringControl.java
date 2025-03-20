@@ -1,4 +1,4 @@
-package com.calvinnordstrom.passrepeater.view;
+package com.calvinnordstrom.passrepeater.view.control;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,6 +33,10 @@ public class StringControl {
 
     public String getValue() {
         return value.get();
+    }
+
+    public void setValue(String value) {
+        textArea.setText(value);
     }
 
     public StringProperty valueProperty() {

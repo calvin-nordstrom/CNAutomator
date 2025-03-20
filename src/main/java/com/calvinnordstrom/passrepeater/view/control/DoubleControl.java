@@ -1,4 +1,4 @@
-package com.calvinnordstrom.passrepeater.view;
+package com.calvinnordstrom.passrepeater.view.control;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -55,6 +55,10 @@ public class DoubleControl {
 
     public double getValue() {
         return value.get();
+    }
+
+    public void setValue(double value) {
+        textField.setText(String.valueOf(value));
     }
 
     public DoubleProperty valueProperty() {
