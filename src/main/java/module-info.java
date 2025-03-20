@@ -5,4 +5,6 @@ module com.calvinnordstrom.passrepeater {
 
     opens com.calvinnordstrom.passrepeater to javafx.fxml;
     exports com.calvinnordstrom.passrepeater;
+    exports com.calvinnordstrom.passrepeater.model;
+    opens com.calvinnordstrom.passrepeater.model to javafx.fxml;
 }
