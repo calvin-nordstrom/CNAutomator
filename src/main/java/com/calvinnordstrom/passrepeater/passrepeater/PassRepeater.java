@@ -1,5 +1,8 @@
-package com.calvinnordstrom.passrepeater.model;
+package com.calvinnordstrom.passrepeater.passrepeater;
 
+import com.calvinnordstrom.passrepeater.model.StringModifier;
+import com.calvinnordstrom.passrepeater.util.Axis;
+import com.calvinnordstrom.passrepeater.util.FileOperations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -9,7 +12,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PassRepeater {
+public class PassRepeater implements StringModifier {
     private final Serializer serializer = new Serializer();
     private final PassRepeaterCommand command;
     private final StringProperty repeatedText = new SimpleStringProperty("");
@@ -82,7 +85,7 @@ public class PassRepeater {
         command.secondPassProperty().addListener(listener);
     }
 
-    public void resetPassRepeater() {
+    public void resetCommand() {
         command.setTextBefore("");
         command.setTextAfter("");
         command.setAxis(Axis.X);
@@ -129,15 +132,8 @@ public class PassRepeater {
         return command;
     }
 
-    public String getRepeatedText() {
-        return repeatedText.get();
-    }
-
-    public void setRepeatedText(String repeatedText) {
-        this.repeatedText.set(repeatedText);
-    }
-
-    public StringProperty repeatedTextProperty() {
+    @Override
+    public StringProperty stringProperty() {
         return repeatedText;
     }
 

@@ -1,4 +1,4 @@
-package com.calvinnordstrom.passrepeater.model;
+package com.calvinnordstrom.passrepeater.util;
 
 import java.io.*;
 

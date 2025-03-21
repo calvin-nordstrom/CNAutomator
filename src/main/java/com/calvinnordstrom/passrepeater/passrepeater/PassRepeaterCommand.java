@@ -1,5 +1,6 @@
-package com.calvinnordstrom.passrepeater.model;
+package com.calvinnordstrom.passrepeater.passrepeater;
 
+import com.calvinnordstrom.passrepeater.util.Axis;
 import javafx.beans.property.*;
 import java.io.*;
 
