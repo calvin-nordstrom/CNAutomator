@@ -114,11 +114,11 @@ public class MainView {
         staticTextTab.setClosable(false);
         TabPane tabPane = new TabPane(repeatedTextTab, staticTextTab);
 
-        Button resetButton = new Button("Reset");
-        resetButton.setOnMouseClicked(_ -> {
+        Button clearButton = new Button("Clear");
+        clearButton.setOnMouseClicked(_ -> {
             resetInputs();
         });
-        HBox controlPane = new HBox(resetButton);
+        HBox controlPane = new HBox(clearButton);
         controlPane.setAlignment(Pos.CENTER);
 
         BorderPane center = new BorderPane();
