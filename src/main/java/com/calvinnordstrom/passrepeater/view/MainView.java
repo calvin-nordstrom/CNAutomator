@@ -13,12 +13,15 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -202,6 +205,7 @@ public class MainView {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fileChooser.setInitialFileName("export.txt");
 
         File fileToSave = fileChooser.showSaveDialog(owner);
         if (fileToSave != null) {
@@ -214,9 +218,9 @@ public class MainView {
             Path path = Paths.get(filePath);
             try {
                 Files.createDirectories(path.getParent());
-                FileWriter writer = new FileWriter(filePath);
-                writer.write(value);
-                writer.close();
+                try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+                    writer.write(value);
+                }
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
