@@ -8,7 +8,7 @@ public class PassRepeaterCommand implements Serializable {
     private static final long serialVersionUID = 1L;
     private transient StringProperty textBefore = new SimpleStringProperty("");
     private transient StringProperty textAfter = new SimpleStringProperty("");
-    private transient ObjectProperty<Direction> direction = new SimpleObjectProperty<>(Direction.X);
+    private transient ObjectProperty<Axis> axis = new SimpleObjectProperty<>(Axis.X);
     private transient DoubleProperty initialPos = new SimpleDoubleProperty(0.0);
     private transient DoubleProperty finalPos = new SimpleDoubleProperty(0.0);
     private transient DoubleProperty increment = new SimpleDoubleProperty(0.0);
@@ -39,16 +39,16 @@ public class PassRepeaterCommand implements Serializable {
         return textAfter;
     }
 
-    public Direction getDirection() {
-        return direction.get();
+    public Axis getAxis() {
+        return axis.get();
     }
 
-    public void setDirection(Direction direction) {
-        this.direction.set(direction);
+    public void setAxis(Axis axis) {
+        this.axis.set(axis);
     }
 
-    public ObjectProperty<Direction> directionProperty() {
-        return direction;
+    public ObjectProperty<Axis> axisProperty() {
+        return axis;
     }
 
     public double getInitialPos() {
@@ -116,7 +116,7 @@ public class PassRepeaterCommand implements Serializable {
         out.defaultWriteObject();
         out.writeObject(textBefore.get());
         out.writeObject(textAfter.get());
-        out.writeObject(direction.get());
+        out.writeObject(axis.get());
         out.writeDouble(initialPos.get());
         out.writeDouble(finalPos.get());
         out.writeDouble(increment.get());
@@ -129,7 +129,7 @@ public class PassRepeaterCommand implements Serializable {
         in.defaultReadObject();
         textBefore = new SimpleStringProperty((String) in.readObject());
         textAfter = new SimpleStringProperty((String) in.readObject());
-        direction = new SimpleObjectProperty<>((Direction) in.readObject());
+        axis = new SimpleObjectProperty<>((Axis) in.readObject());
         initialPos = new SimpleDoubleProperty(in.readDouble());
         finalPos = new SimpleDoubleProperty(in.readDouble());
         increment = new SimpleDoubleProperty(in.readDouble());

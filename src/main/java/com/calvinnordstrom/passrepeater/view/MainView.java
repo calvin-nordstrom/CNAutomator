@@ -1,7 +1,7 @@
 package com.calvinnordstrom.passrepeater.view;
 
 import com.calvinnordstrom.passrepeater.controller.MainController;
-import com.calvinnordstrom.passrepeater.model.Direction;
+import com.calvinnordstrom.passrepeater.model.Axis;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
 import com.calvinnordstrom.passrepeater.model.PassRepeaterCommand;
 import com.calvinnordstrom.passrepeater.view.control.DoubleControl;
@@ -33,11 +33,11 @@ public class MainView {
     private final BorderPane view = new BorderPane();
     private final StringControl textBeforeControl = new StringControl("Text before:");
     private final StringControl textAfterControl = new StringControl("Text after:");
-    private final SelectControl<Direction> directionControl = new SelectControl<>(
-            "Direction:", FXCollections.observableArrayList(
-                    Direction.X,
-                    Direction.Y,
-                    Direction.Z
+    private final SelectControl<Axis> axisControl = new SelectControl<>(
+            "Axis:", FXCollections.observableArrayList(
+                    Axis.X,
+                    Axis.Y,
+                    Axis.Z
             )
     );
     private final DoubleControl initialPosControl = new DoubleControl("Initial position:");
@@ -98,7 +98,7 @@ public class MainView {
 
     private Node createRepeatedTextPane() {
         VBox posControls = new VBox(
-                directionControl.asNode(),
+                axisControl.asNode(),
                 initialPosControl.asNode(),
                 finalPosControl.asNode(),
                 incrementControl.asNode()
@@ -155,7 +155,7 @@ public class MainView {
         PassRepeaterCommand command = model.getRepeatCommand();
         textBeforeControl.setValue(command.getTextBefore());
         textAfterControl.setValue(command.getTextAfter());
-        directionControl.setValue(command.getDirection());
+        axisControl.setValue(command.getAxis());
         initialPosControl.setValue(command.getInitialPos());
         finalPosControl.setValue(command.getFinalPos());
         incrementControl.setValue(command.getIncrement());
@@ -166,7 +166,7 @@ public class MainView {
     private void setInputListeners() {
         textBeforeControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextBefore(newValue));
         textAfterControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextAfter(newValue));
-        directionControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandDirection(newValue));
+        axisControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandAxis(newValue));
         initialPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandInitialPos((double) newValue));
         finalPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandFinalPos((double) newValue));
         incrementControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandIncrement((double) newValue));

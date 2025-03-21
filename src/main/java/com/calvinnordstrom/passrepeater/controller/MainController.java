@@ -1,6 +1,6 @@
 package com.calvinnordstrom.passrepeater.controller;
 
-import com.calvinnordstrom.passrepeater.model.Direction;
+import com.calvinnordstrom.passrepeater.model.Axis;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
 
 public class MainController {
@@ -22,8 +22,8 @@ public class MainController {
         model.setCommandTextAfter(value);
     }
 
-    public void setCommandDirection(Direction value) {
-        model.setCommandDirection(value);
+    public void setCommandAxis(Axis value) {
+        model.setCommandAxis(value);
     }
 
     public void setCommandInitialPos(double value) {

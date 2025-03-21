@@ -23,7 +23,7 @@ public class PassRepeater {
 
     public void execute() {
         StringBuilder repeatedText = new StringBuilder();
-        Direction direction = command.getDirection();
+        Axis axis = command.getAxis();
         BigDecimal pos = new BigDecimal(Double.toString(command.getInitialPos())).setScale(4, RoundingMode.HALF_UP);
         BigDecimal finalPos = new BigDecimal(Double.toString(command.getFinalPos())).setScale(4, RoundingMode.HALF_UP);
         BigDecimal increment = new BigDecimal(Double.toString(command.getIncrement())).setScale(4, RoundingMode.HALF_UP);
@@ -33,7 +33,7 @@ public class PassRepeater {
             repeatedText.append(textBefore).append("\n\n");
         }
 
-        repeatedText.append(direction).append(pos).append("\n\n");
+        repeatedText.append(axis).append(pos).append("\n\n");
 
         while (true) {
             repeatedText.append(command.getFirstPass());
@@ -42,7 +42,7 @@ public class PassRepeater {
             if ((increment.compareTo(BigDecimal.ZERO) > 0 && nextPos.compareTo(finalPos) <= 0) ||
                     (increment.compareTo(BigDecimal.ZERO) < 0 && nextPos.compareTo(finalPos) >= 0)) {
                 pos = nextPos;
-                repeatedText.append("\n").append(direction).append(pos).append("\n\n");
+                repeatedText.append("\n").append(axis).append(pos).append("\n\n");
             } else {
                 break;
             }
@@ -53,7 +53,7 @@ public class PassRepeater {
             if ((increment.compareTo(BigDecimal.ZERO) > 0 && nextPos.compareTo(finalPos) <= 0) ||
                     (increment.compareTo(BigDecimal.ZERO) < 0 && nextPos.compareTo(finalPos) >= 0)) {
                 pos = nextPos;
-                repeatedText.append("\n").append(direction).append(pos).append("\n\n");
+                repeatedText.append("\n").append(axis).append(pos).append("\n\n");
             } else {
                 break;
             }
@@ -74,7 +74,7 @@ public class PassRepeater {
         };
         command.textBeforeProperty().addListener(listener);
         command.textAfterProperty().addListener(listener);
-        command.directionProperty().addListener(listener);
+        command.axisProperty().addListener(listener);
         command.initialPosProperty().addListener(listener);
         command.finalPosProperty().addListener(listener);
         command.incrementProperty().addListener(listener);
@@ -85,7 +85,7 @@ public class PassRepeater {
     public void resetPassRepeater() {
         command.setTextBefore("");
         command.setTextAfter("");
-        command.setDirection(Direction.X);
+        command.setAxis(Axis.X);
         command.setInitialPos(0.0);
         command.setFinalPos(0.0);
         command.setIncrement(0.0);
@@ -101,8 +101,8 @@ public class PassRepeater {
         command.setTextAfter(value);
     }
 
-    public void setCommandDirection(Direction value) {
-        command.setDirection(value);
+    public void setCommandAxis(Axis value) {
+        command.setAxis(value);
     }
 
     public void setCommandInitialPos(double value) {

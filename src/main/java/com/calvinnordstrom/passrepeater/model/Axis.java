@@ -1,6 +1,6 @@
 package com.calvinnordstrom.passrepeater.model;
 
-public enum Direction {
+public enum Axis {
     X,
     Y,
     Z
