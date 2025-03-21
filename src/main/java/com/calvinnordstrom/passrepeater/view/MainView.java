@@ -1,6 +1,5 @@
 package com.calvinnordstrom.passrepeater.view;
 
-import com.calvinnordstrom.passrepeater.controller.MainController;
 import com.calvinnordstrom.passrepeater.model.Axis;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
 import com.calvinnordstrom.passrepeater.model.PassRepeaterCommand;
@@ -29,7 +28,6 @@ import java.nio.file.Paths;
 
 public class MainView {
     private final PassRepeater model;
-    private final MainController controller;
     private final BorderPane view = new BorderPane();
     private final StringControl textBeforeControl = new StringControl("Text before:");
     private final StringControl textAfterControl = new StringControl("Text after:");
@@ -46,9 +44,8 @@ public class MainView {
     private final StringControl firstPassControl = new StringControl("First pass:");
     private final StringControl secondPassControl = new StringControl("Second pass:");
 
-    public MainView(PassRepeater model, MainController controller) {
+    public MainView(PassRepeater model) {
         this.model = model;
-        this.controller = controller;
 
         init();
         initTop();
@@ -80,7 +77,7 @@ public class MainView {
 
         Button clearButton = new Button("Clear");
         clearButton.setOnMouseClicked(_ -> {
-            controller.resetPassRepeater();
+            model.resetPassRepeater();
             resetInputs();
         });
         HBox controlPane = new HBox(clearButton);
@@ -164,14 +161,14 @@ public class MainView {
     }
 
     private void setInputListeners() {
-        textBeforeControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextBefore(newValue));
-        textAfterControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextAfter(newValue));
-        axisControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandAxis(newValue));
-        initialPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandInitialPos((double) newValue));
-        finalPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandFinalPos((double) newValue));
-        incrementControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandIncrement((double) newValue));
-        firstPassControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandFirstPass(newValue));
-        secondPassControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandSecondPass(newValue));
+        textBeforeControl.valueProperty().addListener((_, _, newValue) -> model.setCommandTextBefore(newValue));
+        textAfterControl.valueProperty().addListener((_, _, newValue) -> model.setCommandTextAfter(newValue));
+        axisControl.valueProperty().addListener((_, _, newValue) -> model.setCommandAxis(newValue));
+        initialPosControl.valueProperty().addListener((_, _, newValue) -> model.setCommandInitialPos((double) newValue));
+        finalPosControl.valueProperty().addListener((_, _, newValue) -> model.setCommandFinalPos((double) newValue));
+        incrementControl.valueProperty().addListener((_, _, newValue) -> model.setCommandIncrement((double) newValue));
+        firstPassControl.valueProperty().addListener((_, _, newValue) -> model.setCommandFirstPass(newValue));
+        secondPassControl.valueProperty().addListener((_, _, newValue) -> model.setCommandSecondPass(newValue));
     }
 
     private static void export(String value, Window owner) {

@@ -1,6 +1,5 @@
 package com.calvinnordstrom.passrepeater;
 
-import com.calvinnordstrom.passrepeater.controller.MainController;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
 import com.calvinnordstrom.passrepeater.view.MainView;
 import javafx.application.Application;
@@ -18,8 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         PassRepeater model = new PassRepeater();
-        MainController controller = new MainController(model);
-        MainView view = new MainView(model, controller);
+        MainView view = new MainView(model);
 
         Node root = view.asNode();
         Scene scene = new Scene((Parent) root);
