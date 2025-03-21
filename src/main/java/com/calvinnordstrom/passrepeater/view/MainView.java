@@ -59,47 +59,8 @@ public class MainView {
     }
 
     private void init() {
-        PassRepeaterCommand command = model.getRepeatCommand();
-        textBeforeControl.setValue(command.getTextBefore());
-        textBeforeControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setTextBefore(newValue);
-        });
-        textAfterControl.setValue(command.getTextAfter());
-        textAfterControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setTextAfter(newValue);
-        });
-        directionControl.setValue(command.getDirection());
-        directionControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setDirection(newValue);
-        });
-        initialPosControl.setValue(command.getInitialPos());
-        initialPosControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setInitialPos((double) newValue);
-        });
-        finalPosControl.setValue(command.getFinalPos());
-        finalPosControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setFinalPos((double) newValue);
-        });
-        incrementControl.setValue(command.getIncrement());
-        incrementControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setIncrement((double) newValue);
-        });
-        firstPassControl.setValue(command.getFirstPass());
-        firstPassControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setFirstPass(newValue);
-        });
-        secondPassControl.setValue(command.getSecondPass());
-        secondPassControl.valueProperty().addListener((_, _, newValue) -> {
-            command.setSecondPass(newValue);
-        });
-//        command.textBeforeProperty().bind(textBeforeControl.valueProperty());
-//        command.textAfterProperty().bind(textAfterControl.valueProperty());
-//        command.directionProperty().bind(directionControl.valueProperty());
-//        command.initialPosProperty().bind(initialPosControl.valueProperty());
-//        command.finalPosProperty().bind(finalPosControl.valueProperty());
-//        command.incrementProperty().bind(incrementControl.valueProperty());
-//        command.firstPassProperty().bind(firstPassControl.valueProperty());
-//        command.secondPassProperty().bind(secondPassControl.valueProperty());
+        resetInputs();
+        setInputListeners();
     }
 
     private void initTop() {
@@ -119,6 +80,7 @@ public class MainView {
 
         Button clearButton = new Button("Clear");
         clearButton.setOnMouseClicked(_ -> {
+            controller.resetPassRepeater();
             resetInputs();
         });
         HBox controlPane = new HBox(clearButton);
@@ -190,15 +152,26 @@ public class MainView {
     }
 
     private void resetInputs() {
-        textBeforeControl.setValue("");
-        textAfterControl.setValue("");
-        directionControl.setValue(Direction.X);
-        initialPosControl.setValue(0.0);
-        finalPosControl.setValue(0.0);
-        incrementControl.setValue(0.0);
-        firstPassControl.setValue("");
-        secondPassControl.setValue("");
-        controller.resetPassRepeater();
+        PassRepeaterCommand command = model.getRepeatCommand();
+        textBeforeControl.setValue(command.getTextBefore());
+        textAfterControl.setValue(command.getTextAfter());
+        directionControl.setValue(command.getDirection());
+        initialPosControl.setValue(command.getInitialPos());
+        finalPosControl.setValue(command.getFinalPos());
+        incrementControl.setValue(command.getIncrement());
+        firstPassControl.setValue(command.getFirstPass());
+        secondPassControl.setValue(command.getSecondPass());
+    }
+
+    private void setInputListeners() {
+        textBeforeControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextBefore(newValue));
+        textAfterControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandTextAfter(newValue));
+        directionControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandDirection(newValue));
+        initialPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandInitialPos((double) newValue));
+        finalPosControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandFinalPos((double) newValue));
+        incrementControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandIncrement((double) newValue));
+        firstPassControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandFirstPass(newValue));
+        secondPassControl.valueProperty().addListener((_, _, newValue) -> controller.setCommandSecondPass(newValue));
     }
 
     private static void export(String value, Window owner) {
