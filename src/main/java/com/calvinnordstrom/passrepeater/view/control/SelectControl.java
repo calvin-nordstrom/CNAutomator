@@ -25,8 +25,9 @@ public class SelectControl<T> {
         comboBox.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             value.set(newValue);
         });
-
         view.getChildren().addAll(label, comboBox);
+
+        comboBox.getStyleClass().add("select-control_combo-box");
     }
 
     public T getValue() {

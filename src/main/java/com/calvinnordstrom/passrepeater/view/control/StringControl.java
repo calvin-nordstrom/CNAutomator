@@ -5,11 +5,11 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 
 public class StringControl {
     private final StringProperty value = new SimpleStringProperty("");
-    private final VBox view = new VBox();
+    private final BorderPane view = new BorderPane();
     private final Label label;
     private final TextArea textArea = new TextArea();
 
@@ -23,8 +23,10 @@ public class StringControl {
         textArea.textProperty().addListener((_, _, newValue) -> {
             value.set(newValue);
         });
+        view.setTop(label);
+        view.setCenter(textArea);
 
-        view.getChildren().addAll(label, textArea);
+        textArea.getStyleClass().add("string-control_text-area");
     }
 
     public void bind(StringProperty value) {

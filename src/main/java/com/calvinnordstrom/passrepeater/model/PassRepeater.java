@@ -82,6 +82,18 @@ public class PassRepeater {
         command.secondPassProperty().addListener(listener);
     }
 
+    public void resetPassRepeater() {
+        command.setTextBefore("");
+        command.setTextAfter("");
+        command.setDirection(Direction.X);
+        command.setInitialPos(0.0);
+        command.setFinalPos(0.0);
+        command.setIncrement(0.0);
+        command.setFirstPass("");
+        command.setSecondPass("");
+//        execute();
+    }
+
     public PassRepeaterCommand getRepeatCommand() {
         return command;
     }

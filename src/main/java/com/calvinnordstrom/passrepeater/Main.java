@@ -29,6 +29,7 @@ public class Main extends Application {
         stage.setTitle(TITLE + " " + VERSION);
         stage.setMinWidth(960);
         stage.setMinHeight(540);
+        stage.setResizable(false);
         stage.show();
     }
 

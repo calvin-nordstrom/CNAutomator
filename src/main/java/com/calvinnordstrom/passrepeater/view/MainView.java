@@ -2,19 +2,18 @@ package com.calvinnordstrom.passrepeater.view;
 
 import com.calvinnordstrom.passrepeater.controller.MainController;
 import com.calvinnordstrom.passrepeater.model.Direction;
-import com.calvinnordstrom.passrepeater.model.PassRepeaterCommand;
 import com.calvinnordstrom.passrepeater.model.PassRepeater;
+import com.calvinnordstrom.passrepeater.model.PassRepeaterCommand;
 import com.calvinnordstrom.passrepeater.view.control.DoubleControl;
 import com.calvinnordstrom.passrepeater.view.control.SelectControl;
 import com.calvinnordstrom.passrepeater.view.control.StringControl;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -41,8 +40,8 @@ public class MainView {
     private final DoubleControl initialPosControl = new DoubleControl("Initial position:");
     private final DoubleControl finalPosControl = new DoubleControl("Final position:");
     private final DoubleControl incrementControl = new DoubleControl("Increment:");
-    private final StringControl firstPassControl = new StringControl("First pass");
-    private final StringControl secondPassControl = new StringControl("Second pass");
+    private final StringControl firstPassControl = new StringControl("First pass:");
+    private final StringControl secondPassControl = new StringControl("Second pass:");
 
     public MainView(PassRepeater model, MainController controller) {
         this.model = model;
@@ -59,21 +58,45 @@ public class MainView {
     private void init() {
         PassRepeaterCommand command = model.getRepeatCommand();
         textBeforeControl.setValue(command.getTextBefore());
+        textBeforeControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setTextBefore(newValue);
+        });
         textAfterControl.setValue(command.getTextAfter());
+        textAfterControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setTextAfter(newValue);
+        });
         directionControl.setValue(command.getDirection());
+        directionControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setDirection(newValue);
+        });
         initialPosControl.setValue(command.getInitialPos());
+        initialPosControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setInitialPos((double) newValue);
+        });
         finalPosControl.setValue(command.getFinalPos());
+        finalPosControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setFinalPos((double) newValue);
+        });
         incrementControl.setValue(command.getIncrement());
+        incrementControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setIncrement((double) newValue);
+        });
         firstPassControl.setValue(command.getFirstPass());
+        firstPassControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setFirstPass(newValue);
+        });
         secondPassControl.setValue(command.getSecondPass());
-        command.textBeforeProperty().bind(textBeforeControl.valueProperty());
-        command.textAfterProperty().bind(textAfterControl.valueProperty());
-        command.directionProperty().bind(directionControl.valueProperty());
-        command.initialPosProperty().bind(initialPosControl.valueProperty());
-        command.finalPosProperty().bind(finalPosControl.valueProperty());
-        command.incrementProperty().bind(incrementControl.valueProperty());
-        command.firstPassProperty().bind(firstPassControl.valueProperty());
-        command.secondPassProperty().bind(secondPassControl.valueProperty());
+        secondPassControl.valueProperty().addListener((_, _, newValue) -> {
+            command.setSecondPass(newValue);
+        });
+//        command.textBeforeProperty().bind(textBeforeControl.valueProperty());
+//        command.textAfterProperty().bind(textAfterControl.valueProperty());
+//        command.directionProperty().bind(directionControl.valueProperty());
+//        command.initialPosProperty().bind(initialPosControl.valueProperty());
+//        command.finalPosProperty().bind(finalPosControl.valueProperty());
+//        command.incrementProperty().bind(incrementControl.valueProperty());
+//        command.firstPassProperty().bind(firstPassControl.valueProperty());
+//        command.secondPassProperty().bind(secondPassControl.valueProperty());
     }
 
     private void initTop() {
@@ -91,7 +114,21 @@ public class MainView {
         staticTextTab.setClosable(false);
         TabPane tabPane = new TabPane(repeatedTextTab, staticTextTab);
 
-        view.setCenter(tabPane);
+        Button resetButton = new Button("Reset");
+        resetButton.setOnMouseClicked(_ -> {
+            resetInputs();
+        });
+        HBox controlPane = new HBox(resetButton);
+        controlPane.setAlignment(Pos.CENTER);
+
+        BorderPane center = new BorderPane();
+        center.setCenter(tabPane);
+        center.setBottom(controlPane);
+
+        view.setCenter(center);
+
+        tabPane.getStyleClass().add("pass-repeater_tab-pane");
+        controlPane.getStyleClass().add("pass-repeater_control-pane");
     }
 
     private Node createRepeatedTextPane() {
@@ -106,14 +143,21 @@ public class MainView {
                 secondPassControl.asNode()
         );
 
+        posControls.getStyleClass().add("pos-controls");
+        passControls.getStyleClass().add("pass-controls");
+
         return new HBox(posControls, passControls);
     }
 
     private Node createStaticTextPane() {
-        return new HBox(
+        HBox staticTextControls = new HBox(
                 textBeforeControl.asNode(),
                 textAfterControl.asNode()
         );
+
+        staticTextControls.getStyleClass().add("static-text-controls");
+
+        return staticTextControls;
     }
 
     private void initRight() {
@@ -121,15 +165,37 @@ public class MainView {
     }
 
     private Node createPreviewPane() {
-        StringControl previewControl = new StringControl("Preview");
+        StringControl previewControl = new StringControl("Preview:");
         previewControl.bind(model.repeatedTextProperty());
 
         Button exportButton = new Button("Export");
         exportButton.setOnMouseClicked(_ -> {
             export(model.getRepeatedText(), view.getScene().getWindow());
         });
+        HBox bottom = new HBox(exportButton);
+        bottom.setAlignment(Pos.CENTER);
 
-        return new VBox(previewControl.asNode(), exportButton);
+        BorderPane previewPane = new BorderPane();
+        previewPane.setCenter(previewControl.asNode());
+        previewPane.setBottom(bottom);
+
+        previewControl.asNode().getStyleClass().add("width-300");
+        previewPane.getStyleClass().add("preview-pane");
+        bottom.getStyleClass().add("preview-pane_bottom");
+
+        return new BorderPane(previewPane);
+    }
+
+    private void resetInputs() {
+        textBeforeControl.setValue("");
+        textAfterControl.setValue("");
+        directionControl.setValue(Direction.X);
+        initialPosControl.setValue(0.0);
+        finalPosControl.setValue(0.0);
+        incrementControl.setValue(0.0);
+        firstPassControl.setValue("");
+        secondPassControl.setValue("");
+        controller.resetPassRepeater();
     }
 
     private static void export(String value, Window owner) {
@@ -163,5 +229,17 @@ public class MainView {
 
     public Node asNode() {
         return view;
+    }
+
+    private static Pane createHorizontalDivider() {
+        Pane divider = new Pane();
+        divider.getStyleClass().add("horizontal-divider");
+        return divider;
+    }
+
+    private static Pane createVerticalDivider() {
+        Pane divider = new Pane();
+        divider.getStyleClass().add("vertical-divider");
+        return divider;
     }
 }

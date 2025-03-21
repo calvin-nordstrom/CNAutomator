@@ -49,8 +49,9 @@ public class DoubleControl {
                 }
             }
         });
-
         view.getChildren().addAll(label, textField);
+
+        textField.getStyleClass().add("double-control_text-field");
     }
 
     public double getValue() {

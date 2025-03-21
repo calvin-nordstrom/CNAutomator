@@ -8,4 +8,8 @@ public class MainController {
     public MainController(PassRepeater model) {
         this.model = model;
     }
+
+    public void resetPassRepeater() {
+        model.resetPassRepeater();
+    }
 }
