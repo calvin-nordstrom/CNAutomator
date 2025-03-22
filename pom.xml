@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.calvinnordstrom</groupId>
-    <artifactId>passrepeater</artifactId>
+    <artifactId>cnautomator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>PassRepeater</name>
 
@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.calvinnordstrom.passrepeater/com.calvinnordstrom.passrepeater.Main
+                                com.calvinnordstrom.automator/com.calvinnordstrom.cnautomator.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
