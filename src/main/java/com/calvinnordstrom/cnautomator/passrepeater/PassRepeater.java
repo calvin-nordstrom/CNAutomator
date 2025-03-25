@@ -6,6 +6,7 @@ import com.calvinnordstrom.cnautomator.util.FileOperations;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.Node;
 
 import java.io.File;
 import java.io.IOException;
@@ -140,6 +141,11 @@ public class PassRepeater implements AutomationTool {
     @Override
     public StringProperty stringProperty() {
         return repeatedText;
+    }
+
+    @Override
+    public Node getView() {
+        return new PassRepeaterView(this).asNode();
     }
 
     private class Serializer {

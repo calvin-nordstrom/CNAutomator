@@ -1,8 +1,6 @@
 package com.calvinnordstrom.cnautomator.view;
 
 import com.calvinnordstrom.cnautomator.model.AutomationTool;
-import com.calvinnordstrom.cnautomator.passrepeater.PassRepeater;
-import com.calvinnordstrom.cnautomator.passrepeater.PassRepeaterView;
 import com.calvinnordstrom.cnautomator.view.control.StringControl;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,32 +13,45 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.calvinnordstrom.cnautomator.view.ViewUtils.export;
 
 public class MainView {
-    private final StringProperty preview = new SimpleStringProperty("");
+    private final List<AutomationTool> tools;
     private final BorderPane view = new BorderPane();
-    private final Map<Tab, AutomationTool> tabMap = new HashMap<>();
+    private final Map<Tab, AutomationTool> tabMap;
+    private final StringProperty preview = new SimpleStringProperty("");
 
-    public MainView() {
+    public MainView(List<AutomationTool> tools) {
+        this.tools = tools;
+        tabMap = createTabMap();
+
         initCenter();
         initRight();
     }
 
-    private void initCenter() {
-        PassRepeater passRepeater = new PassRepeater();
-        PassRepeaterView passRepeaterView = new PassRepeaterView(passRepeater);
-        Tab passRepeaterTab = createTab(passRepeater, passRepeaterView.asNode());
+    private Map<Tab, AutomationTool> createTabMap() {
+        Map<Tab, AutomationTool> map = new HashMap<>();
+        for (AutomationTool tool : tools) {
+            Tab tab = new Tab(tool.getTitle(), tool.getView());
+            tab.setClosable(false);
+            map.put(tab, tool);
+        }
+        return map;
+    }
 
-        TabPane tabPane = new TabPane(passRepeaterTab);
+    private void initCenter() {
+        TabPane tabPane = new TabPane(tabMap.keySet().toArray(new Tab[0]));
         tabPane.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             setPreviewModifier(tabMap.get(newValue));
         });
 
+        setPreviewModifier(tools.getFirst());
+
         // Set default preview modifier
-        setPreviewModifier(passRepeater);
+//        setPreviewModifier(passRepeater);
 
         view.setCenter(tabPane);
     }
