@@ -1,6 +1,6 @@
 package com.calvinnordstrom.cnautomator.passrepeater;
 
-import com.calvinnordstrom.cnautomator.model.StringModifier;
+import com.calvinnordstrom.cnautomator.model.AutomationTool;
 import com.calvinnordstrom.cnautomator.util.Axis;
 import com.calvinnordstrom.cnautomator.util.FileOperations;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PassRepeater implements StringModifier {
+public class PassRepeater implements AutomationTool {
     private final Serializer serializer = new Serializer();
     private final PassRepeaterCommand command;
     private final StringProperty repeatedText = new SimpleStringProperty("");
@@ -130,6 +130,11 @@ public class PassRepeater implements StringModifier {
 
     public PassRepeaterCommand getRepeatCommand() {
         return command;
+    }
+
+    @Override
+    public String getTitle() {
+        return "Pass Repeater";
     }
 
     @Override

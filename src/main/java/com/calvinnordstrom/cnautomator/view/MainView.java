@@ -1,6 +1,6 @@
 package com.calvinnordstrom.cnautomator.view;
 
-import com.calvinnordstrom.cnautomator.model.StringModifier;
+import com.calvinnordstrom.cnautomator.model.AutomationTool;
 import com.calvinnordstrom.cnautomator.passrepeater.PassRepeater;
 import com.calvinnordstrom.cnautomator.passrepeater.PassRepeaterView;
 import com.calvinnordstrom.cnautomator.view.control.StringControl;
@@ -22,7 +22,7 @@ import static com.calvinnordstrom.cnautomator.view.ViewUtils.export;
 public class MainView {
     private final StringProperty preview = new SimpleStringProperty("");
     private final BorderPane view = new BorderPane();
-    private final Map<Tab, StringModifier> tabMap = new HashMap<>();
+    private final Map<Tab, AutomationTool> tabMap = new HashMap<>();
 
     public MainView() {
         initCenter();
@@ -32,7 +32,7 @@ public class MainView {
     private void initCenter() {
         PassRepeater passRepeater = new PassRepeater();
         PassRepeaterView passRepeaterView = new PassRepeaterView(passRepeater);
-        Tab passRepeaterTab = createTab("Pass Repeater", passRepeater, passRepeaterView.asNode());
+        Tab passRepeaterTab = createTab(passRepeater, passRepeaterView.asNode());
 
         TabPane tabPane = new TabPane(passRepeaterTab);
         tabPane.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
@@ -45,17 +45,17 @@ public class MainView {
         view.setCenter(tabPane);
     }
 
-    private Tab createTab(String text, StringModifier modifier, Node content) {
-        Tab tab = new Tab(text, content);
+    private Tab createTab(AutomationTool tool, Node content) {
+        Tab tab = new Tab(tool.getTitle(), content);
         tab.setClosable(false);
-        tabMap.put(tab, modifier);
+        tabMap.put(tab, tool);
         return tab;
     }
 
-    private void setPreviewModifier(StringModifier modifier) {
-        if (modifier != null) {
-            preview.set(modifier.stringProperty().get());
-            modifier.stringProperty().addListener((_, _, newValue) -> {
+    private void setPreviewModifier(AutomationTool tool) {
+        if (tool != null) {
+            preview.set(tool.stringProperty().get());
+            tool.stringProperty().addListener((_, _, newValue) -> {
                 preview.set(newValue);
             });
         }
