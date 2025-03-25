@@ -25,24 +25,8 @@ public class MainView {
     private final Map<Tab, StringModifier> tabMap = new HashMap<>();
 
     public MainView() {
-        init();
-        initTop();
-        initLeft();
         initCenter();
         initRight();
-        initBottom();
-    }
-
-    private void init() {
-
-    }
-
-    private void initTop() {
-
-    }
-
-    private void initLeft() {
-
     }
 
     private void initCenter() {
@@ -101,10 +85,6 @@ public class MainView {
         bottom.getStyleClass().add("preview-pane_bottom");
 
         return new BorderPane(previewPane);
-    }
-
-    private void initBottom() {
-
     }
 
     public Node asNode() {
