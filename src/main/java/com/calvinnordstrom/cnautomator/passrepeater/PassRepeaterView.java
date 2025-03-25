@@ -107,14 +107,15 @@ public class PassRepeaterView {
     }
 
     private void setInputListeners() {
-        textBeforeControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandTextBefore(newValue));
-        textAfterControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandTextAfter(newValue));
-        axisControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandAxis(newValue));
-        initialPosControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandInitialPos((double) newValue));
-        finalPosControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandFinalPos((double) newValue));
-        incrementControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandIncrement((double) newValue));
-        firstPassControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandFirstPass(newValue));
-        secondPassControl.valueProperty().addListener((_, _, newValue) -> passRepeater.setCommandSecondPass(newValue));
+        PassRepeaterCommand command = passRepeater.getRepeatCommand();
+        textBeforeControl.valueProperty().addListener((_, _, newValue) -> command.setTextBefore(newValue));
+        textAfterControl.valueProperty().addListener((_, _, newValue) -> command.setTextAfter(newValue));
+        axisControl.valueProperty().addListener((_, _, newValue) -> command.setAxis(newValue));
+        initialPosControl.valueProperty().addListener((_, _, newValue) -> command.setInitialPos((double) newValue));
+        finalPosControl.valueProperty().addListener((_, _, newValue) -> command.setFinalPos((double) newValue));
+        incrementControl.valueProperty().addListener((_, _, newValue) -> command.setIncrement((double) newValue));
+        firstPassControl.valueProperty().addListener((_, _, newValue) -> command.setFirstPass(newValue));
+        secondPassControl.valueProperty().addListener((_, _, newValue) -> command.setSecondPass(newValue));
     }
 
     public Node asNode() {

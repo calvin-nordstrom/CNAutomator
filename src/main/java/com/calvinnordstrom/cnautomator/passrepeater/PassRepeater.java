@@ -97,38 +97,6 @@ public class PassRepeater implements AutomationTool {
         command.setSecondPass("");
     }
 
-    public void setCommandTextBefore(String value) {
-        command.setTextBefore(value);
-    }
-
-    public void setCommandTextAfter(String value) {
-        command.setTextAfter(value);
-    }
-
-    public void setCommandAxis(Axis value) {
-        command.setAxis(value);
-    }
-
-    public void setCommandInitialPos(double value) {
-        command.setInitialPos(value);
-    }
-
-    public void setCommandFinalPos(double value) {
-        command.setFinalPos(value);
-    }
-
-    public void setCommandIncrement(double value) {
-        command.setIncrement(value);
-    }
-
-    public void setCommandFirstPass(String value) {
-        command.setFirstPass(value);
-    }
-
-    public void setCommandSecondPass(String value) {
-        command.setSecondPass(value);
-    }
-
     public PassRepeaterCommand getRepeatCommand() {
         return command;
     }
