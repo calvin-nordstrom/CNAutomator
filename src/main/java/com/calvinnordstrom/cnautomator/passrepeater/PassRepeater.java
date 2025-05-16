@@ -1,6 +1,6 @@
 package com.calvinnordstrom.cnautomator.passrepeater;
 
-import com.calvinnordstrom.cnautomator.model.AutomationTool;
+import com.calvinnordstrom.cnautomator.interfaces.GCodeTool;
 import com.calvinnordstrom.cnautomator.util.Axis;
 import com.calvinnordstrom.cnautomator.util.FileOperations;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PassRepeater implements AutomationTool {
+public class PassRepeater implements GCodeTool {
     private final Serializer serializer = new Serializer();
     private final PassRepeaterCommand command;
     private final StringProperty repeatedText = new SimpleStringProperty("");

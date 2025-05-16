@@ -1,7 +1,5 @@
 package com.calvinnordstrom.cnautomator;
 
-import com.calvinnordstrom.cnautomator.model.AutomationTool;
-import com.calvinnordstrom.cnautomator.passrepeater.PassRepeater;
 import com.calvinnordstrom.cnautomator.view.MainView;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -9,8 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -19,10 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        List<AutomationTool> tools = new ArrayList<>();
-        tools.add(new PassRepeater());
-
-        MainView view = new MainView(tools);
+        MainView view = new MainView();
 
         Node root = view.asNode();
         Scene scene = new Scene((Parent) root);

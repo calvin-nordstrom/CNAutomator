@@ -1,9 +1,9 @@
-package com.calvinnordstrom.cnautomator.model;
+package com.calvinnordstrom.cnautomator.interfaces;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 
-public interface AutomationTool {
+public interface GCodeTool {
     String getTitle();
 
     StringProperty stringProperty();
