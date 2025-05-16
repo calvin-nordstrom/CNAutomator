@@ -2,6 +2,7 @@ package com.calvinnordstrom.cnautomator.view;
 
 import com.calvinnordstrom.cnautomator.interfaces.GCodeTool;
 import com.calvinnordstrom.cnautomator.view.control.StringControl;
+import com.calvinnordstrom.cnautomator.view.node.TitlePane;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Pos;
@@ -50,9 +51,7 @@ public class GCodeToolView {
 
         setPreviewModifier(tools.getFirst());
 
-        // Set default preview modifier
-//        setPreviewModifier(passRepeater);
-
+        view.setTop(new TitlePane("General G-code Tools").asNode());
         view.setCenter(tabPane);
     }
 

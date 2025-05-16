@@ -88,3 +88,14 @@
   -fx-border-width: 1 0 0 0;
   -fx-border-color: -cn-border-color;
 }
+
+.tool-title-pane {
+  -fx-padding: 10, 0, 10, 0;
+  -fx-border-style: solid;
+  -fx-border-width: 0 0 1 0;
+  -fx-border-color: -cn-border-color;
+}
+
+.tool-title {
+  -fx-font-size: 20;
+}
