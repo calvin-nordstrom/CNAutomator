@@ -55,13 +55,6 @@ public class GCodeToolView {
         view.setCenter(tabPane);
     }
 
-    private Tab createTab(GCodeTool tool, Node content) {
-        Tab tab = new Tab(tool.getTitle(), content);
-        tab.setClosable(false);
-        tabMap.put(tab, tool);
-        return tab;
-    }
-
     private void setPreviewModifier(GCodeTool tool) {
         if (tool != null) {
             preview.set(tool.stringProperty().get());
