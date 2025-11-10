@@ -7,37 +7,24 @@ import java.io.*;
 public class PassRepeaterCommand implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    private transient StringProperty textBefore = new SimpleStringProperty("");
-    private transient StringProperty textAfter = new SimpleStringProperty("");
     private transient ObjectProperty<Axis> axis = new SimpleObjectProperty<>(Axis.X);
     private transient DoubleProperty initialPos = new SimpleDoubleProperty(0.0);
     private transient DoubleProperty finalPos = new SimpleDoubleProperty(0.0);
     private transient DoubleProperty increment = new SimpleDoubleProperty(0.0);
     private transient StringProperty firstPass = new SimpleStringProperty("");
     private transient StringProperty secondPass = new SimpleStringProperty("");
+    private transient StringProperty textBefore = new SimpleStringProperty("");
+    private transient StringProperty textAfter = new SimpleStringProperty("");
 
-    public String getTextBefore() {
-        return textBefore.get();
-    }
-
-    public void setTextBefore(String textBefore) {
-        this.textBefore.set(textBefore);
-    }
-
-    public StringProperty textBeforeProperty() {
-        return textBefore;
-    }
-
-    public String getTextAfter() {
-        return textAfter.get();
-    }
-
-    public void setTextAfter(String textAfter) {
-        this.textAfter.set(textAfter);
-    }
-
-    public StringProperty textAfterProperty() {
-        return textAfter;
+    public void reset() {
+        setAxis(Axis.X);
+        setInitialPos(0.0);
+        setFinalPos(0.0);
+        setIncrement(0.0);
+        setFirstPass("");
+        setSecondPass("");
+        setTextBefore("");
+        setTextAfter("");
     }
 
     public Axis getAxis() {
@@ -112,29 +99,53 @@ public class PassRepeaterCommand implements Serializable {
         return secondPass;
     }
 
+    public String getTextBefore() {
+        return textBefore.get();
+    }
+
+    public void setTextBefore(String textBefore) {
+        this.textBefore.set(textBefore);
+    }
+
+    public StringProperty textBeforeProperty() {
+        return textBefore;
+    }
+
+    public String getTextAfter() {
+        return textAfter.get();
+    }
+
+    public void setTextAfter(String textAfter) {
+        this.textAfter.set(textAfter);
+    }
+
+    public StringProperty textAfterProperty() {
+        return textAfter;
+    }
+
     @Serial
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        out.writeObject(textBefore.get());
-        out.writeObject(textAfter.get());
         out.writeObject(axis.get());
         out.writeDouble(initialPos.get());
         out.writeDouble(finalPos.get());
         out.writeDouble(increment.get());
         out.writeObject(firstPass.get());
         out.writeObject(secondPass.get());
+        out.writeObject(textBefore.get());
+        out.writeObject(textAfter.get());
     }
 
     @Serial
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        textBefore = new SimpleStringProperty((String) in.readObject());
-        textAfter = new SimpleStringProperty((String) in.readObject());
         axis = new SimpleObjectProperty<>((Axis) in.readObject());
         initialPos = new SimpleDoubleProperty(in.readDouble());
         finalPos = new SimpleDoubleProperty(in.readDouble());
         increment = new SimpleDoubleProperty(in.readDouble());
         firstPass = new SimpleStringProperty((String) in.readObject());
         secondPass = new SimpleStringProperty((String) in.readObject());
+        textBefore = new SimpleStringProperty((String) in.readObject());
+        textAfter = new SimpleStringProperty((String) in.readObject());
     }
 }

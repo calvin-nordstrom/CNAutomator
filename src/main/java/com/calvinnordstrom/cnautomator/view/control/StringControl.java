@@ -26,7 +26,7 @@ public class StringControl {
         view.setTop(label);
         view.setCenter(textArea);
 
-        textArea.getStyleClass().add("string-control_text-area");
+        textArea.getStyleClass().add("string-control-text-area");
     }
 
     public void bind(StringProperty value) {

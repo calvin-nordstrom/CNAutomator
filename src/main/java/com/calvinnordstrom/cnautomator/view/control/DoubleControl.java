@@ -51,7 +51,7 @@ public class DoubleControl {
         });
         view.getChildren().addAll(label, textField);
 
-        textField.getStyleClass().add("double-control_text-field");
+        textField.getStyleClass().add("double-control-text-field");
     }
 
     public double getValue() {

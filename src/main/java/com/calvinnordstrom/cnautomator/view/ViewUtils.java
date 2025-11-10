@@ -1,6 +1,6 @@
 package com.calvinnordstrom.cnautomator.view;
 
-import javafx.scene.layout.Pane;
+import javafx.css.Styleable;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ViewUtils {
-    public static void export(String value, Window owner) {
+    public static void exportText(String value, Window owner) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
@@ -38,15 +38,7 @@ public class ViewUtils {
         }
     }
 
-    public static Pane createHorizontalDivider() {
-        Pane divider = new Pane();
-        divider.getStyleClass().add("horizontal-divider");
-        return divider;
-    }
-
-    public static Pane createVerticalDivider() {
-        Pane divider = new Pane();
-        divider.getStyleClass().add("vertical-divider");
-        return divider;
+    public static void addStyleClass(Styleable component, String... styles) {
+        component.getStyleClass().addAll(styles);
     }
 }

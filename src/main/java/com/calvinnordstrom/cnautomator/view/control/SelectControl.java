@@ -27,7 +27,7 @@ public class SelectControl<T> {
         });
         view.getChildren().addAll(label, comboBox);
 
-        comboBox.getStyleClass().add("select-control_combo-box");
+        comboBox.getStyleClass().add("select-control-combo-box");
     }
 
     public T getValue() {

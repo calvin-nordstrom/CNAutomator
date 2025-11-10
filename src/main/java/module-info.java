@@ -1,12 +1,14 @@
 module com.calvinnordstrom.passrepeater {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jnativehook;
+    requires java.logging;
+    requires javafx.graphics;
 
-
-    opens com.calvinnordstrom.cnautomator to javafx.fxml;
     exports com.calvinnordstrom.cnautomator;
-    exports com.calvinnordstrom.cnautomator.passrepeater;
-    opens com.calvinnordstrom.cnautomator.passrepeater to javafx.fxml;
-    exports com.calvinnordstrom.cnautomator.util;
-    opens com.calvinnordstrom.cnautomator.util to javafx.fxml;
+    opens com.calvinnordstrom.cnautomator to javafx.fxml;
+    exports com.calvinnordstrom.cnautomator.module;
+    opens com.calvinnordstrom.cnautomator.module to javafx.fxml;
+    exports com.calvinnordstrom.cnautomator.view;
+    opens com.calvinnordstrom.cnautomator.view to javafx.fxml;
 }

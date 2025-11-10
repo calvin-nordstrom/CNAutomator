@@ -2,6 +2,8 @@
   -cn-border-color: #888888;
 }
 
+/* [START] Global Styles */
+
 .label {
   -fx-font-size: 14;
 }
@@ -10,92 +12,84 @@
   -fx-font-size: 14;
 }
 
-.double-control_text-field {
+.tab {
+  -fx-font-size: 14;
+}
+
+/* [END] Global Styles */
+
+/* [START] Control Styles */
+
+.double-control-text-field {
   -fx-font-family: 'Consolas';
   -fx-font-size: 14;
 }
 
-.select-control_combo-box {
+.select-control-combo-box {
   -fx-font-family: 'Consolas';
   -fx-font-size: 14;
 }
 
-.string-control_text-area {
+.string-control-text-area {
   -fx-font-family: 'Consolas';
   -fx-font-size: 14;
 }
 
-.pass-repeater_tab-pane {
-  -fx-min-width: 600;
-  -fx-pref-width: 600;
+.toggle-control-check-box {
+  -fx-font-size: 14;
 }
 
-.pass-repeater_control-pane {
-  -fx-padding: 20;
-  -fx-spacing: 10;
-  -fx-border-style: solid;
-  -fx-border-width: 1 0 0 0;
-  -fx-border-color: -cn-border-color;
-}
+/* [END] Control Styles */
 
-.pos-controls {
-  -fx-min-width: 150;
-  -fx-pref-width: 150;
-  -fx-padding: 20;
+/* [START] PassRepeater Styles */
+
+.pr-pos-controls {
+  -fx-min-width: 200;
+  -fx-pref-width: 200;
+  -fx-padding: 10;
   -fx-spacing: 10;
   -fx-border-style: solid;
   -fx-border-width: 0 1 0 0;
   -fx-border-color: -cn-border-color;
 }
 
-.pass-controls {
-  -fx-padding: 20;
-  -fx-spacing: 20;
+.pr-pass-controls {
+  -fx-padding: 10;
+  -fx-spacing: 10;
 }
 
-.width-300 {
-  -fx-min-width: 300;
-  -fx-pref-width: 300;
+.pr-static-text-controls {
+  -fx-padding: 10;
+  -fx-spacing: 10;
 }
 
-.static-text-controls {
-  -fx-padding: 20;
-  -fx-spacing: 20;
+.pr-control-pane-bottom {
+  -fx-padding: 10;
+  -fx-spacing: 10;
+  -fx-border-style: solid;
+  -fx-border-width: 1 0 0 0;
+  -fx-border-color: -cn-border-color;
 }
 
-.preview-pane {
-  -fx-padding: 20;
-  -fx-spacing: 20;
+.pr-preview-control-pane {
+  -fx-padding: 10;
+  -fx-spacing: 10;
   -fx-border-style: solid;
   -fx-border-width: 0 0 0 1;
   -fx-border-color: -cn-border-color;
 }
 
-.preview-pane_bottom {
-  -fx-padding: 20 0 0 0;
+.pr-preview-pane-bottom-controls {
+  -fx-spacing: 10;
+  -fx-alignment: center;
 }
 
-.vertical-divider {
-  -fx-max-width: 1;
+.pr-preview-pane-bottom {
+  -fx-padding: 10;
+  -fx-spacing: 10;
   -fx-border-style: solid;
-  -fx-border-width: 0 1 0 0;
+  -fx-border-width: 1 0 0 1;
   -fx-border-color: -cn-border-color;
 }
 
-.horizontal-divider {
-  -fx-max-height: 1;
-  -fx-border-style: solid;
-  -fx-border-width: 1 0 0 0;
-  -fx-border-color: -cn-border-color;
-}
-
-.tool-title-pane {
-  -fx-padding: 10, 0, 10, 0;
-  -fx-border-style: solid;
-  -fx-border-width: 0 0 1 0;
-  -fx-border-color: -cn-border-color;
-}
-
-.tool-title {
-  -fx-font-size: 20;
-}
+/* [END] PassRepeater Styles */
