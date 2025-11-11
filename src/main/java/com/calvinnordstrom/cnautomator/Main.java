@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class Main extends Application {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getPackageName());
     private static final String TITLE = "CNAutomator";
-    private static final String VERSION = "1.1.0";
+    private static final String VERSION = "1.1.1";
     private static final double WIDTH = 1200;
     private static final double HEIGHT = 720;
     private static final double MIN_WIDTH = 600;
